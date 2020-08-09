@@ -1,6 +1,6 @@
 /**
  * getCurrentLocation factory
- * @param {Object} deps
+ * @param {object} deps
  * @param {getCurrentCoordinates} deps.getCurrentCoordinates
  * @param {getForecastLocationByCoords} deps.getForecastLocationByCoords
  * @returns {() => Promise<ForecastLocation>}

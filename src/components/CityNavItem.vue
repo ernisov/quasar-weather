@@ -11,6 +11,11 @@
 <script>
 export default {
   name: 'CityNavItem',
-  props: ['location']
+  props: {
+    location: {
+      type: Object,
+      required: false
+    }
+  }
 }
 </script>

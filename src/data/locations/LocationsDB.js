@@ -14,6 +14,10 @@ export default class LocationsDB {
     return this._db.create(this._objectStore, location)
   }
 
+  getById (id) {
+    return this._db.getByKey('locations', id)
+  }
+
   getAll () {
     return this._db.getAll(this._objectStore)
   }

@@ -6,7 +6,7 @@
     <div class="footer-nav">
       <city-nav-item
         v-for="location in locations"
-        :key="location.name"
+        :key="location && location.locationId"
         :location="location" />
     </div>
   </div>
@@ -14,23 +14,40 @@
 
 <script>
 import CityNavItem from 'components/CityNavItem'
+import getSavedForecastLocations from 'src/services/getSavedForecastLocations'
+import getCurrentForecastLocation from 'src/services/getCurrentForecastLocation'
+import saveForecastLocation from 'src/services/saveForecastLocation'
 
 export default {
   name: 'MainLayout',
+  async created () {
+    try {
+      const savedLocaitons = await getSavedForecastLocations()
+      if (savedLocaitons.length === 0) {
+        const currentLocation = await getCurrentForecastLocation()
+        const created = await saveForecastLocation(currentLocation)
+        this.locations.push(created)
+      } else {
+        this.locations = savedLocaitons
+      }
+    } catch (e) {
+      // Not sure about cross-browser compatibility
+      if (e instanceof window.GeolocationPositionError || e instanceof window.PositionError) {
+        this.$router.replace('search')
+        return
+      }
+
+      // show something went wrong?
+      // think about displaying errors
+      // Nah. Maybe I'm just too serious
+      // DB is always allowed. What about non browser env?
+      // Add when test capacitor
+      console.log(e)
+    }
+  },
   data () {
     return {
-      locations: [
-        {
-          name: 'bishkek',
-          label: 'Бишкек',
-          order: 1
-        },
-        {
-          name: 'moscow',
-          label: 'Москва',
-          order: 2
-        }
-      ]
+      locations: []
     }
   },
   components: {

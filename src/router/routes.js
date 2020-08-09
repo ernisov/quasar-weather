@@ -1,16 +1,15 @@
 
 const routes = [
   {
+    path: '/search',
+    component: () => import('pages/SearchLocation.vue')
+  },
+  {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '/:city?', component: () => import('pages/CityWeather.vue') }
     ]
-  },
-
-  {
-    path: '/search',
-    component: () => import('layouts/FullScreenLayout.vue')
   },
 
   // Always leave this as last one,
