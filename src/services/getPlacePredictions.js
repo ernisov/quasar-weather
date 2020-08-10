@@ -1,4 +1,4 @@
-import WebAutocomplete from 'src/data/locations/Autocomplete.web'
+import LocationsAPI from 'src/data/locations/LocationsAPI'
 import factory from './getPlacePredictions.factory'
 
-export default factory(new WebAutocomplete())
+export default factory(new LocationsAPI())

@@ -6,7 +6,7 @@
       :key="prediction.locationId"
       @click="save(prediction)"
     >
-      {{prediction.description}}
+      {{prediction.address}}
     </p>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
       }
     },
     async save (prediction) {
-      const location = await getForecastLocation(prediction.description)
+      const location = await getForecastLocation(prediction.address)
       this.savedLocations.push(saveForecastLocation(location))
       this.predictions = []
       this.query = ''

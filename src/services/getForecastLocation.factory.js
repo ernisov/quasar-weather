@@ -1,5 +1,9 @@
-export default function (locationsService) {
+/**
+ * getForecastLocation factory
+ * @param {ILocationsAPI} locationsAPI
+ */
+export default function (locationsAPI) {
   return function (query) {
-    return locationsService.findForecastLocationByText(query)
+    return locationsAPI.findByText(query)
   }
 }

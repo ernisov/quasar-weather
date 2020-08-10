@@ -1,5 +1,9 @@
-export default function (service) {
+/**
+ * getLocationPredictions factory
+ * @param {ILocationsAPI} locationsAPI
+ */
+export default function (locationsAPI) {
   return function (query) {
-    return service.getPlacePredictions(query)
+    return locationsAPI.getPredictions(query)
   }
 }

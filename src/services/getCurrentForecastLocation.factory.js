@@ -2,23 +2,17 @@
  * getCurrentLocation factory
  * @param {object} deps
  * @param {getCurrentCoordinates} deps.getCurrentCoordinates
- * @param {getForecastLocationByCoords} deps.getForecastLocationByCoords
+ * @param {ILocationsAPI} deps.locationsAPI
  * @returns {() => Promise<ForecastLocation>}
  */
 export default function (deps) {
   return async function () {
     const coordinates = await deps.getCurrentCoordinates()
-    return deps.getForecastLocationByCoords(coordinates)
+    return deps.locationsAPI.findByCoordinates(coordinates)
   }
 }
 
 /**
  * @callback getCurrentCoordinates
  * @returns {Promise<LocationCoordinates>}
- */
-
-/**
- * @callback getForecastLocationByCoords
- * @param {LocationCoordinates} coordinates
- * @returns {Promise<ForecastLocation>}
  */
