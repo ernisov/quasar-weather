@@ -8,7 +8,11 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '/:city?', component: () => import('pages/CityWeather.vue') }
+      {
+        path: '/:locationId?',
+        component: () => import('pages/CityWeather.vue'),
+        props: true
+      }
     ]
   },
 

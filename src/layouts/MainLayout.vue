@@ -27,8 +27,10 @@ export default {
         const currentLocation = await getCurrentForecastLocation()
         const created = await saveForecastLocation(currentLocation)
         this.locations.push(created)
+        this.redirectToLocation(created)
       } else {
         this.locations = savedLocaitons
+        this.redirectToLocation(this.locations[0])
       }
     } catch (e) {
       // Not sure about cross-browser compatibility
@@ -48,6 +50,14 @@ export default {
   data () {
     return {
       locations: []
+    }
+  },
+  methods: {
+    redirectToLocation (location) {
+      const futurePath = `/${location.locationId}`
+      if (this.$route.path !== futurePath) {
+        this.$router.replace(futurePath)
+      }
     }
   },
   components: {

@@ -42,7 +42,7 @@
 /**
  * @typedef WeatherDescription
  * @property {number} id
- * @property {string} main
+ * @property {string} main - Short weather group description (Rain, Snow, etc.)
  * @property {string} description
  * @property {string} icon
  */
