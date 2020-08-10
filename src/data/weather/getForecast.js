@@ -20,11 +20,11 @@ export default async function (coords) {
       date: new Date(day.dt * 1000),
       tempMin: day.temp.min.toFixed(0),
       tempMax: day.temp.max.toFixed(0),
-      sunrise: day.sunrise,
-      sunset: day.sunset,
+      sunrise: new Date(day.sunrise * 1000),
+      sunset: new Date(day.sunset * 1000),
       weather: day.weather[0]
     }))
-    .slice(1, 6)
+    .slice(0, 6)
 
   const next24Hours = result.hourly
     .sort((a, b) => a.dt - b.dt)
@@ -46,13 +46,14 @@ export default async function (coords) {
       rain: result.current.rain && result.current.rain['1h'],
       snow: result.current.snow && result.current.snow['1h'],
       comfort: {
-        feelsLike: result.current.feels_like,
+        feelsLike: result.current.feels_like.toFixed(0),
         humidity: result.current.humidity,
         uvi: result.current.uvi
       },
       wind: {
         speed: result.current.wind_speed,
-        direction: result.current.wind_deg // TODO: change to abbreviations
+        direction: result.current.wind_deg,
+        directionLabel: convertDegToCompassDirections(result.current.wind_deg)
       },
       weather: result.current.weather[0]
     },
@@ -60,4 +61,9 @@ export default async function (coords) {
     next24Hours
   }
   return forecast
+}
+
+function convertDegToCompassDirections (deg) {
+  const directions = ['С', 'СВ', 'В', 'ЮВ', 'Ю', 'ЮЗ', 'З', 'СЗ', 'С']
+  return directions[Math.ceil(deg / 45)]
 }

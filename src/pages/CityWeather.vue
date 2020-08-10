@@ -28,7 +28,7 @@
     <hr>
     <div>
       <div
-        v-for="(day, index) in weatherData.forecast.daily"
+        v-for="(day, index) in weatherData.forecast.daily.slice(1)"
         :key="day.date | time">
         <p v-if="index > 0">
           {{ day.date | weekDay }}, {{ day.date.getDate() }} {{ day.date | month }}
@@ -44,6 +44,18 @@
     <hr>
     <div>
       <h2>Комфорт</h2>
+      <p>Влажность: {{ weatherData.forecast.current.comfort.humidity }}</p>
+      <p>Ощущение: {{ weatherData.forecast.current.comfort.feelsLike }}</p>
+      <p>Индекс УФ: {{ weatherData.forecast.current.comfort.uvi }}</p>
+    </div>
+    <div>
+      <h2>Ветер</h2>
+      <p>Направление: {{ weatherData.forecast.current.wind.directionLabel }}</p>
+      <p>Скорость: {{ weatherData.forecast.current.wind.speed }} м/с</p>
+    </div>
+    <div>
+      <p>Восход: {{ weatherData.forecast.daily[0].sunrise | hours }}</p>
+      <p>Закат: {{ weatherData.forecast.daily[0].sunset | hours }}</p>
     </div>
   </div>
 </template>

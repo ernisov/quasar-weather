@@ -17,7 +17,8 @@
  * @property {number}             comfort.uvi
  * @property {object}             wind
  * @property {number}             wind.speed
- * @property {string}             wind.direction
+ * @property {number}             wind.direction
+ * @property {string}             wind.directionLabel
  * @property {WeatherDescription} weather
  */
 
