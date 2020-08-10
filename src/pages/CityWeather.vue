@@ -70,6 +70,12 @@ export default {
       type: String
     }
   },
+  watch: {
+    async locationId () {
+      const location = await getSavedForecastLocation(this.locationId)
+      this.weatherData = await getWeatherData(location)
+    }
+  },
   data () {
     return {
       /**

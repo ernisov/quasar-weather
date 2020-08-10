@@ -2,7 +2,7 @@
   <q-item
     clickable
     tag="a"
-    :to="location.name"
+    :to="'/' + location.locationId"
   >
     {{ location.label }}
   </q-item>
