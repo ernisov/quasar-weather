@@ -65,6 +65,7 @@
  * @property {string} daytime.sunrise
  * @property {string} daytime.sunset
  * @property {number} daytime.percentOfDaytimeLeft
+ * @property {Date} daytime.localTime
  */
 
 /**

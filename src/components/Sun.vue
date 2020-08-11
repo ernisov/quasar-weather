@@ -15,14 +15,22 @@ export default {
       default: 2
     }
   },
+  watch: {
+    percentOfDaytimeLeft: function () {
+      const { orbiteStyles, sunStyles } = this.computeStyles(this.width)
+      this.orbiteStyles = orbiteStyles
+      this.sunStyles = sunStyles
+    }
+  },
   mounted () {
-    const width = this.getWidth()
-    const { orbiteStyles, sunStyles } = this.computeStyles(width)
+    this.width = this.getWidth()
+    const { orbiteStyles, sunStyles } = this.computeStyles(this.width)
     this.orbiteStyles = orbiteStyles
     this.sunStyles = sunStyles
   },
   data () {
     return {
+      width: 0,
       orbiteStyles: null,
       sunStyles: null
     }

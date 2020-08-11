@@ -93,12 +93,15 @@
       <div class="daytime__sun">
         <sun
           :borderWidth="2"
-          :percentOfDaytimeLeft="weatherData.daytime.percentOfDaytimeLeft"
+          :percentOfDaytimeLeft="percentOfDaytimeLeft"
         />
       </div>
       <div class="row">
         <p class="row__half daytime__sunrise">
           Восход: {{ weatherData.daytime.sunrise }}
+        </p>
+        <p class="row__half daytime__current">
+          {{ localTime }}
         </p>
         <p class="row__half daytime__sunset">
           Закат: {{ weatherData.daytime.sunset }}
@@ -111,6 +114,12 @@
 <script>
 import Windmill from 'components/Windmill'
 import Sun from 'components/Sun'
+import {
+  getTime,
+  getDateFromTime,
+  getPercentOfDaytimeLeft
+} from 'src/utils/date'
+
 export default {
   props: {
     weatherData: {
@@ -118,9 +127,43 @@ export default {
       required: true
     }
   },
+  watch: {
+    weatherData: function () {
+      this.localTimeDate = this.weatherData.daytime.localTime
+    }
+  },
+  created () {
+    this.localTimeDate = this.weatherData.daytime.localTime
+  },
+  mounted () {
+    this.clock = setInterval(this.setLocalTime, 1000)
+  },
+  methods: {
+    setLocalTime () {
+      this.localTimeDate = new Date(this.localTimeDate.getTime() + 1000)
+      this.localTime = getTime(this.localTimeDate)
+    }
+  },
+  data () {
+    return {
+      clock: null,
+      localTimeDate: null,
+      localTime: ''
+    }
+  },
+  computed: {
+    percentOfDaytimeLeft: function () {
+      const sunrise = getDateFromTime(this.weatherData.daytime.sunrise)
+      const sunset = getDateFromTime(this.weatherData.daytime.sunset)
+      return getPercentOfDaytimeLeft(sunrise, sunset, this.localTimeDate)
+    }
+  },
   components: {
     Windmill,
     Sun
+  },
+  beforeDestroy () {
+    clearInterval(this.clock)
   }
 }
 </script>
@@ -326,6 +369,12 @@ export default {
     &__sunset {
       margin: 1em 0;
       text-align: right;
+    }
+
+    &__current {
+      margin: 1em 0;
+      text-align: center;
+      font-weight: bold;
     }
   }
   .param {

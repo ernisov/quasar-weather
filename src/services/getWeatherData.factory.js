@@ -32,6 +32,10 @@ export default function (getForecast) {
  */
 function formatWeatherData (weatherData) {
   const today = weatherData.forecast.daily[0]
+  const timezoneOffset = parseInt(weatherData.forecast.timezoneOffset) * 1000 + new Date().getTimezoneOffset() * 60 * 1000
+  const localTime = new Date(Date.now() + timezoneOffset)
+  today.sunrise = new Date(today.sunrise.getTime() + timezoneOffset)
+  today.sunset = new Date(today.sunset.getTime() + timezoneOffset)
 
   const next24Hours = weatherData.forecast.next24Hours.map(h => ({
     time: getHours(h.time),
@@ -63,9 +67,9 @@ function formatWeatherData (weatherData) {
     },
     comfort: weatherData.forecast.current.comfort,
     daytime: {
+      localTime: localTime,
       sunrise: getHours(today.sunrise),
-      sunset: getHours(today.sunset),
-      percentOfDaytimeLeft: getPercentOfDaytimeLeft(today.sunrise, today.sunset)
+      sunset: getHours(today.sunset)
     },
     wind: {
       direction: weatherData.forecast.current.wind.directionLabel,
@@ -74,26 +78,4 @@ function formatWeatherData (weatherData) {
     next24Hours,
     daily
   }
-}
-
-/**
- *
- * @param {Date} sunrise
- * @param {Date} sunset
- */
-function getPercentOfDaytimeLeft (sunrise, sunset) {
-  const now = Date.now()
-  const sunriseTime = sunrise.getTime()
-  const sunsetTime = sunset.getTime()
-  const daytime = sunsetTime - sunriseTime
-
-  if (now - sunriseTime <= 0) {
-    return 1
-  }
-
-  if (now - sunsetTime >= 0) {
-    return 0
-  }
-
-  return +(now / daytime).toFixed(2)
 }

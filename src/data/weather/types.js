@@ -4,6 +4,7 @@
  * @property {CurrentWeather}   current
  * @property {HourlyForecast[]} next24Hours
  * @property {DailyForecast[]}  daily
+ * @property {number}           timezoneOffset
  */
 
 /**

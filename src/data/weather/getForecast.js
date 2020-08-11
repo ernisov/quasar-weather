@@ -47,6 +47,7 @@ export default async function (coords) {
    */
   const forecast = {
     date: new Date(),
+    timezoneOffset: result.timezone_offset,
     current: {
       temp: result.current.temp.toFixed(0),
       rain: result.current.rain && result.current.rain['1h'],
