@@ -16,7 +16,7 @@
 
 <script>
 import ZeroResults from 'components/ZeroResults'
-import getPlacePredictions from 'src/services/getPlacePredictions'
+import getForecastLocationPredictions from 'src/services/getForecastLocationPredictions'
 import getForecastLocation from 'src/services/getForecastLocation'
 import getSavedForecastLocations from 'src/services/getSavedForecastLocations'
 import saveForecastLocation from 'src/services/saveForecastLocation'
@@ -36,7 +36,7 @@ export default {
   methods: {
     async search (e) {
       try {
-        const results = await getPlacePredictions(this.query)
+        const results = await getForecastLocationPredictions(this.query)
         this.predictions = results.filter(result => {
           const there = this.savedLocations.find(l => l.locationId === result.locationId)
           return !there

@@ -4,7 +4,6 @@ const { Geolocation } = Plugins
 
 /**
  * Returns current coords in Capacitor app
- * @func
  * @returns {Promise<LocationCoordinates>}
  */
 export default function () {

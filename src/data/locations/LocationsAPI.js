@@ -1,5 +1,5 @@
 /**
- * @implements {ILocationsAPI}
+ * @implements {IForecastLocationsAPI}
  */
 export default class LocationsAPI {
   constructor () {

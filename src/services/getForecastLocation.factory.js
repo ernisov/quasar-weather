@@ -1,6 +1,6 @@
 /**
  * getForecastLocation factory
- * @param {ILocationsAPI} locationsAPI
+ * @param {IForecastLocationsAPI} locationsAPI
  */
 export default function (locationsAPI) {
   return function (query) {

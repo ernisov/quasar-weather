@@ -1,5 +1,5 @@
 /**
- * @param {LocationsDB} locationsDB
+ * @param {IForecastLocationsDB} locationsDB
  */
 export default function (locationsDB) {
   return function (locationId) {

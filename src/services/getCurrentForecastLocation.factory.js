@@ -2,7 +2,7 @@
  * getCurrentLocation factory
  * @param {object} deps
  * @param {getCurrentCoordinates} deps.getCurrentCoordinates
- * @param {ILocationsAPI} deps.locationsAPI
+ * @param {IForecastLocationsAPI} deps.locationsAPI
  * @returns {() => Promise<ForecastLocation>}
  */
 export default function (deps) {

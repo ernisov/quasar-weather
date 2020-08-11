@@ -1,5 +1,4 @@
 import factory from './saveForecastLocation.factory'
-import IndexedDB from 'src/db/db.web'
-import LocationsDB from 'src/data/locations/LocationsDB'
+import LocationsDB from 'src/data/locations/LocationsDB.web'
 
-export default factory(new LocationsDB(new IndexedDB()))
+export default factory(new LocationsDB())
