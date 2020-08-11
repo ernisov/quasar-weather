@@ -39,7 +39,10 @@ export default {
       }
     } catch (e) {
       // Not sure about cross-browser compatibility
-      if (e instanceof window.GeolocationPositionError || e instanceof window.PositionError) {
+      if (
+        e instanceof window.GeolocationPositionError ||
+        (window.PositionError && e instanceof window.PositionError)
+      ) {
         this.$router.replace('search')
         return
       }
