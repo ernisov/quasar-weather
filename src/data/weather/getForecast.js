@@ -22,7 +22,10 @@ export default async function (coords) {
       tempMax: day.temp.max.toFixed(0),
       sunrise: new Date(day.sunrise * 1000),
       sunset: new Date(day.sunset * 1000),
-      weather: day.weather[0]
+      weather: {
+        ...day.weather[0],
+        icon: `http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`
+      }
     }))
     .slice(0, 6)
 
@@ -31,8 +34,11 @@ export default async function (coords) {
     .map(hour => ({
       time: new Date(hour.dt * 1000),
       temp: hour.temp.toFixed(0),
-      pop: (hour.pop * 100).toFixed(0),
-      weather: hour.weather[0]
+      pop: hour.pop && (hour.pop * 100).toFixed(0),
+      weather: {
+        ...hour.weather[0],
+        icon: `http://openweathermap.org/img/wn/${hour.weather[0].icon}@2x.png`
+      }
     }))
     .slice(0, 24)
 
@@ -55,7 +61,10 @@ export default async function (coords) {
         direction: result.current.wind_deg,
         directionLabel: convertDegToCompassDirections(result.current.wind_deg)
       },
-      weather: result.current.weather[0]
+      weather: {
+        ...result.current.weather[0],
+        icon: `http://openweathermap.org/img/wn/${result.current.weather[0].icon}@2x.png`
+      }
     },
     daily,
     next24Hours

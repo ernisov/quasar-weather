@@ -36,13 +36,59 @@
 /**
  * Weather Information for given location
  * @typedef WeatherData
- * @property {string} placeId
+ * @property {string} locationId
  * @property {string} label
  * @property {Forecast} forecast
  */
 
 /**
- * @typedef {(location: ForecastLocation) => Promise<WeatherData>} GetWeatherData
+ * Weather data formatted
+ * @typedef WeatherDataViewModel
+ * @property {string} locationId
+ * @property {object} main
+ * @property {number} main.currentTemp
+ * @property {number} main.tempMax
+ * @property {number} main.tempMin
+ * @property {string} main.location
+ * @property {string} main.description
+ * @property {string} main.dateUpdated in HH:mm format
+ * @property {HourlyViewModel[]} next24Hours
+ * @property {DailyViewModel[]} daily
+ * @property {object} comfort
+ * @property {number} comfort.humidity
+ * @property {number} comfort.feelsLike
+ * @property {number} comfort.uvi
+ * @property {object} wind
+ * @property {string} wind.direction
+ * @property {number} wind.speed
+ * @property {object} daytime
+ * @property {string} daytime.sunrise
+ * @property {string} daytime.sunset
+ * @property {number} daytime.percentOfDaytimeLeft
+ */
+
+/**
+ * Hourly data formatted
+ * @typedef HourlyViewModel
+ * @property {string} time HH:mm format
+ * @property {string} icon - url
+ * @property {number} temp
+ * @property {number?} pop
+ */
+/**
+ * Daily data formatted
+ * @typedef DailyViewModel
+ * @property {object} date
+ * @property {string} date.weekDay
+ * @property {number} date.day
+ * @property {string} date.month
+ * @property {string} icon - url
+ * @property {number} tempMax
+ * @property {number} tempMin
+ */
+
+/**
+ * @typedef {(location: ForecastLocation) => Promise<WeatherDataViewModel>} GetWeatherData
  */
 
 /**
