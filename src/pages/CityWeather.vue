@@ -73,7 +73,9 @@ export default {
   watch: {
     async locationId () {
       const location = await getSavedForecastLocation(this.locationId)
-      this.weatherData = await getWeatherData(location)
+      if (location) {
+        this.weatherData = await getWeatherData(location)
+      }
     }
   },
   data () {
@@ -86,7 +88,9 @@ export default {
   },
   async created () {
     const location = await getSavedForecastLocation(this.locationId)
-    this.weatherData = await getWeatherData(location)
+    if (location) {
+      this.weatherData = await getWeatherData(location)
+    }
   },
   filters: {
     hours (date) {

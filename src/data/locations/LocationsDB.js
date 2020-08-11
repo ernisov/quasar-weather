@@ -15,6 +15,7 @@ export default class LocationsDB {
   }
 
   getById (id) {
+    if (!id) return
     return this._db.getByKey('locations', id)
   }
 
