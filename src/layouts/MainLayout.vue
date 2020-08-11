@@ -8,6 +8,9 @@
         v-for="location in locations"
         :key="location && location.locationId"
         :location="location" />
+      <button @click="goToSearch">
+        Добавить город
+      </button>
     </div>
   </div>
 </template>
@@ -30,7 +33,9 @@ export default {
         this.redirectToLocation(created)
       } else {
         this.locations = savedLocaitons
-        this.redirectToLocation(this.locations[0])
+        if (!this.$route.params.locationId) {
+          this.redirectToLocation(this.locations[0])
+        }
       }
     } catch (e) {
       // Not sure about cross-browser compatibility
@@ -58,6 +63,9 @@ export default {
       if (this.$route.path !== futurePath) {
         this.$router.replace(futurePath)
       }
+    },
+    goToSearch () {
+      this.$router.push('search')
     }
   },
   components: {

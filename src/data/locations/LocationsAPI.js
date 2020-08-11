@@ -89,7 +89,7 @@ export default class LocationsAPI {
         lat: geometry.location.lat(),
         lng: geometry.location.lng()
       },
-      label: addressComponents.find(c => c.types.includes('locality')).short_name,
+      label: addressComponents[0].short_name,
       locationId
     }
   }
