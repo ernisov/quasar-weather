@@ -1,17 +1,21 @@
 <template>
   <div>
     <input type="text" @input="search" v-model="query" >
-    <p
-      v-for="prediction in predictions"
-      :key="prediction.locationId"
-      @click="save(prediction)"
-    >
-      {{prediction.address}}
-    </p>
+    <div v-if="predictions.length > 0">
+      <p
+        v-for="prediction in predictions"
+        :key="prediction.locationId"
+        @click="save(prediction)"
+      >
+        {{prediction.address}}
+      </p>
+    </div>
+    <zero-results v-if="query && predictions.length === 0" />
   </div>
 </template>
 
 <script>
+import ZeroResults from 'components/ZeroResults'
 import getPlacePredictions from 'src/services/getPlacePredictions'
 import getForecastLocation from 'src/services/getForecastLocation'
 import getSavedForecastLocations from 'src/services/getSavedForecastLocations'
@@ -42,11 +46,16 @@ export default {
       }
     },
     async save (prediction) {
-      const location = await getForecastLocation(prediction.address)
-      this.savedLocations.push(saveForecastLocation(location))
       this.predictions = []
       this.query = ''
+      const location = await getForecastLocation(prediction.address)
+      const savedLocation = await saveForecastLocation(location)
+      this.savedLocations.push(savedLocation)
+      this.$router.push(`/${savedLocation.locationId}`)
     }
+  },
+  components: {
+    ZeroResults
   }
 }
 </script>
