@@ -95,5 +95,5 @@ function getPercentOfDaytimeLeft (sunrise, sunset) {
     return 0
   }
 
-  return (now / daytime).toFixed(2)
+  return +(now / daytime).toFixed(2)
 }

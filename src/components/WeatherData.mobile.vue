@@ -147,6 +147,10 @@ export default {
     }
   }
 
+  .wrapper {
+    padding-bottom: 5em;
+  }
+
   .main {
     &__info {
       display: flex;
@@ -187,12 +191,21 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    padding: 0 1em;
+
+    &::after {
+      content: 'aft';
+      visibility: hidden;
+      display: block;
+    }
   }
 
   .hour {
     padding: 1em;
+    max-width: 3em;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 
     &__time {
@@ -206,7 +219,7 @@ export default {
     }
 
     &__icon {
-      flex: 1;
+      max-width: 2em;
       object-fit: contain;
     }
 

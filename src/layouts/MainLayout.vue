@@ -4,13 +4,15 @@
       <router-view />
     </main>
     <div class="footer-nav">
-      <city-nav-item
-        v-for="location in locations"
-        :key="location && location.locationId"
-        :location="location" />
-      <button @click="goToSearch">
-        Добавить город
-      </button>
+      <div class="cities">
+        <city-nav-item
+          v-for="location in locations"
+          :key="location && location.locationId"
+          :location="location" />
+        <q-item clickable class="add-city-button" @click="goToSearch">
+          Добавить
+        </q-item>
+      </div>
     </div>
   </div>
 </template>
@@ -88,10 +90,21 @@ export default {
   }
 
   .footer-nav {
+    padding-top: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+  }
+
+  .cities {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    border-top: 1px solid grey;
+    overflow: auto;
+  }
+
+  .add-city-button {
+    color: grey;
   }
 </style>
