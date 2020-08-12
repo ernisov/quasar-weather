@@ -18,15 +18,28 @@
 </template>
 
 <script>
+import { Plugins, StatusBarStyle } from 'app/src-capacitor/node_modules/@capacitor/core'
 import CityNavItem from 'components/CityNavItem'
 import getSavedForecastLocations from 'src/services/getSavedForecastLocations'
 import getCurrentForecastLocation from 'src/services/getCurrentForecastLocation'
 import saveForecastLocation from 'src/services/saveForecastLocation'
 
+const { StatusBar } = Plugins
+
 export default {
   name: 'MainLayout',
   async created () {
     try {
+      if (this.$q.platform.is.capacitor && this.$q.platform.is.android) {
+        StatusBar.setStyle({
+          style: StatusBarStyle.Light
+        })
+
+        StatusBar.setBackgroundColor({
+          color: '#FFFFFF'
+        })
+      }
+
       const savedLocaitons = await getSavedForecastLocations()
       if (savedLocaitons.length === 0) {
         const currentLocation = await getCurrentForecastLocation()
