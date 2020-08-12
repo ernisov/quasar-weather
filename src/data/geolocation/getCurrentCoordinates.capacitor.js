@@ -9,7 +9,7 @@ const { Geolocation } = Plugins
 export default function () {
   return Geolocation.getCurrentPosition()
     .then(position => ({
-      lat: position.latitude,
-      lng: position.longitude
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
     }))
 }
