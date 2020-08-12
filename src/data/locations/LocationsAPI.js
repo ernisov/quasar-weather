@@ -84,12 +84,14 @@ export default class LocationsAPI {
       address_components: addressComponents
     } = result
 
+    console.log(addressComponents)
+
     return {
       coords: {
         lat: geometry.location.lat(),
         lng: geometry.location.lng()
       },
-      label: addressComponents.filter(a => a.types.includes('locality'))[0].short_name,
+      label: addressComponents.filter(a => a.types.includes('locality') || a.types.includes('administrative_area_level_1'))[0].short_name,
       locationId
     }
   }
