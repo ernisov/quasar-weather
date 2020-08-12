@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: Move to SearchLocation.mobile.vue -->
   <div>
     <div class="search__container">
       <q-input

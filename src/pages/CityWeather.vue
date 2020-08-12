@@ -4,6 +4,9 @@
       v-if="$q.platform.is.mobile"
       :weatherData="weatherData"
     />
+      <q-inner-loading :showing="loading">
+        <q-spinner-gears size="50px" color="primary" />
+      </q-inner-loading>
   </div>
 </template>
 
@@ -21,9 +24,11 @@ export default {
   },
   watch: {
     async locationId () {
+      this.loading = true
       const location = await getSavedForecastLocation(this.locationId)
       if (location) {
         this.weatherData = await getWeatherData(location)
+        this.loading = false
       }
     }
   },
@@ -32,13 +37,15 @@ export default {
       /**
        * @type {WeatherDataViewModel}
        */
-      weatherData: null
+      weatherData: null,
+      loading: true
     }
   },
   async created () {
     const location = await getSavedForecastLocation(this.locationId)
     if (location) {
       this.weatherData = await getWeatherData(location)
+      this.loading = false
     }
   },
   components: {
