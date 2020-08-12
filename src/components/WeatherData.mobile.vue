@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: Refactor this -->
   <div class="wrapper">
     <section class="main">
       <div class="main__info">

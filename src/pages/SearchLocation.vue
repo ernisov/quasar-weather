@@ -1,15 +1,28 @@
 <template>
   <div>
-    <input type="text" @input="search" v-model="query" >
-    <div v-if="predictions.length > 0">
-      <p
+    <div class="search__container">
+      <q-input
+        ref="search"
+        type="text"
+        @input="search"
+        v-model="query">
+        <template v-slot:append>
+          <q-icon name="search" />
+        </template>
+      </q-input>
+    </div>
+    <q-list padding v-if="predictions.length > 0">
+      <q-item
         v-for="prediction in predictions"
         :key="prediction.locationId"
         @click="save(prediction)"
-      >
-        {{prediction.address}}
-      </p>
-    </div>
+        clickable
+        v-ripple>
+        <q-item-section>
+          {{ prediction.address }}
+        </q-item-section>
+      </q-item>
+    </q-list>
     <zero-results v-if="query && predictions.length === 0" />
   </div>
 </template>
@@ -25,6 +38,9 @@ export default {
   name: 'SearchLocaiton',
   async created () {
     this.savedLocations = await getSavedForecastLocations()
+  },
+  mounted () {
+    this.$refs.search.$el.focus()
   },
   data () {
     return {
@@ -59,3 +75,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .search__container {
+    margin: 0 1em;
+  }
+</style>

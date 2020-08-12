@@ -1,3 +1,5 @@
 <template>
-  <p>Ничего не найдено :(</p>
+  <div class="q-pa-md">
+    Ничего не найдено :(
+  </div>
 </template>
